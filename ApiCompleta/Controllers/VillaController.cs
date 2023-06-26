@@ -1,4 +1,5 @@
-﻿using ApiCompleta.Models;
+﻿using ApiCompleta.Datos;
+using ApiCompleta.Models;
 using ApiCompleta.Models.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,13 +12,27 @@ namespace ApiCompleta.Controllers
 	{
 		[HttpGet]
 
-        public IEnumerable<VillaDto> GetVillas()
+        public ActionResult<IEnumerable<VillaDto>> GetVillas()
 		{
-			return new List<VillaDto>()
+			return Ok(VillaStore.villaList);
+		}
+
+		[HttpGet("id:int")]
+
+		public ActionResult <VillaDto> GetVilla(int id)
+		{
+			if(id == 0)
 			{
-				new VillaDto{Id=1, Name="Vista a la Piscina"},
-				new VillaDto{Id=2, Name="Vista a la Playa"}
-			};
+				return BadRequest();
+			}
+			var villa = VillaStore.villaList.FirstOrDefault(v => v.Id == id);
+
+			if (villa == null)
+			{
+				return NotFound();
+			}
+
+			return Ok(villa);
 		}
     }
 }
