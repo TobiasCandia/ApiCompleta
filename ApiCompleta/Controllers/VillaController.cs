@@ -1,4 +1,5 @@
 ﻿using ApiCompleta.Models;
+using ApiCompleta.Models.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,12 +11,12 @@ namespace ApiCompleta.Controllers
 	{
 		[HttpGet]
 
-        public IEnumerable<Villa> GetVillas()
+        public IEnumerable<VillaDto> GetVillas()
 		{
-			return new List<Villa>()
+			return new List<VillaDto>()
 			{
-				new Villa{Id=1, Name="Vista a la Piscina"},
-				new Villa{Id=2, Name="Vista a la Playa"}
+				new VillaDto{Id=1, Name="Vista a la Piscina"},
+				new VillaDto{Id=2, Name="Vista a la Playa"}
 			};
 		}
     }
