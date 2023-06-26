@@ -18,7 +18,9 @@ namespace ApiCompleta.Controllers
 		}
 
 		[HttpGet("id:int")]
-
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		public ActionResult <VillaDto> GetVilla(int id)
 		{
 			if(id == 0)
