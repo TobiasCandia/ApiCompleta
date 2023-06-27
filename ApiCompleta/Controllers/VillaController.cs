@@ -3,6 +3,7 @@ using ApiCompleta.Models;
 using ApiCompleta.Models.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiCompleta.Controllers
@@ -91,19 +92,23 @@ namespace ApiCompleta.Controllers
 			return NoContent();
 		}
 
-		[HttpPut("{id:int}")]
+		[HttpPatch("{id:int}")]
 		[ProducesResponseType(StatusCodes.Status204NoContent)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		public IActionResult UpdateVilla(int id, [FromBody] VillaDto villaDto) 
+		public IActionResult UpdatePartialVilla(int id, JsonPatchDocument<VillaDto> patchDto) 
 		{
-			if (villaDto == null || id!= villaDto.Id) 
+			if (patchDto == null || id == 0) 
 			{
 				return BadRequest();
 			}
 			var villa = VillaStore.villaList.FirstOrDefault(v => v.Id == id);
-			villa.Name = villaDto.Name;
-			villa.Ocupantes = villaDto.Ocupantes;
-			villa.MetrosCuadrados = villaDto.MetrosCuadrados;
+			
+			patchDto.ApplyTo(villa, ModelState);
+
+			if(!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
 
 			return NoContent();
 		}
