@@ -9,7 +9,7 @@ namespace ApiCompleta.Datos
 		{
 			
 		}
-		public DbSet<Villa> Villas {get; set;}
+		public DbSet<Villa> Villas { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -22,7 +22,7 @@ namespace ApiCompleta.Datos
 					ImagenUrl = "",
 					Ocupantes = 5,
 					MetrosCuadrados = 50,
-					Tarifa = 200,
+					Tarifa = 20,
 					Amenidad = "",
 					FechaCreacion = DateTime.Now,
 					FechaActualizacion = DateTime.Now
@@ -35,7 +35,7 @@ namespace ApiCompleta.Datos
 					ImagenUrl = "",
 					Ocupantes = 4,
 					MetrosCuadrados = 40,
-					Tarifa = 150,
+					Tarifa = 10,
 					Amenidad = "",
 					FechaCreacion = DateTime.Now,
 					FechaActualizacion = DateTime.Now
