@@ -10,7 +10,7 @@ namespace ApiCompleta.Repositorio.IRepositorio
 
 		Task<T> Obtener(Expression<Func<T, bool>>? filtro = null, bool tracked = true);
 
-		Task Remove(T entidad);
+		Task Remover(T entidad);
 
 		Task Grabar();
 	}

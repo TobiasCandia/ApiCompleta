@@ -1,5 +1,7 @@
 using ApiCompleta;
 using ApiCompleta.Datos;
+using ApiCompleta.Repositorio;
+using ApiCompleta.Repositorio.IRepositorio;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +21,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
 });
 
 builder.Services.AddAutoMapper(typeof(MappingConfig));
+
+builder.Services.AddScoped<IVillaRepositorio, VillaRepositorio>();
 
 var app = builder.Build();
 

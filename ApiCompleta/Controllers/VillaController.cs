@@ -1,6 +1,7 @@
 ﻿using ApiCompleta.Datos;
 using ApiCompleta.Models;
 using ApiCompleta.Models.Dto;
+using ApiCompleta.Repositorio.IRepositorio;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -16,13 +17,13 @@ namespace ApiCompleta.Controllers
 	{
 
 		private readonly ILogger<VillaController> _logger;
-		private readonly ApplicationDbContext _db;
+		private readonly IVillaRepositorio _villaRepo;
 		private readonly IMapper _mapper;
 
-		public VillaController(ILogger<VillaController> logger, ApplicationDbContext db, IMapper mapper)
+		public VillaController(ILogger<VillaController> logger, IVillaRepositorio villaRepo, IMapper mapper)
 		{
 			_logger = logger;
-			_db = db;
+			_villaRepo = villaRepo;
 			_mapper = mapper;
 		}
 
@@ -33,7 +34,7 @@ namespace ApiCompleta.Controllers
 		{
 			_logger.LogInformation("Obtener las Villas");
 
-			IEnumerable<Villa> villaList = await _db.Villas.ToListAsync();
+			IEnumerable<Villa> villaList = await _villaRepo.ObtenerTodos();
 
 			return Ok(_mapper.Map<IEnumerable<VillaDto>>(villaList));
 		}
@@ -49,7 +50,7 @@ namespace ApiCompleta.Controllers
 				_logger.LogError("Error al traer Villa con Id" + id);
 				return BadRequest();
 			}
-			var villa = await _db.Villas.FirstOrDefaultAsync(v => v.Id == id);
+			var villa = await _villaRepo.Obtener(v => v.Id == id);
 
 			if (villa == null)
 			{
@@ -71,7 +72,7 @@ namespace ApiCompleta.Controllers
 				return BadRequest(ModelState);
 			}
 
-			if (await _db.Villas.FirstOrDefaultAsync(v => v.Name.ToLower() == createDto.Name.ToLower()) != null)
+			if (await _villaRepo.Obtener(v => v.Name.ToLower() == createDto.Name.ToLower()) != null)
 			{
 				ModelState.AddModelError("NombreExiste", "La Villa con ese Nombre ya exite!");
 				return BadRequest(ModelState);
@@ -85,8 +86,7 @@ namespace ApiCompleta.Controllers
 			Villa modelo = _mapper.Map<Villa>(createDto);
 
 			
-			await _db.Villas.AddAsync(modelo);
-			await _db.SaveChangesAsync();
+			await _villaRepo.Crear(modelo);
 
 			return CreatedAtRoute("GetVilla", new {id = modelo.Id}, modelo);
 		}
@@ -101,13 +101,12 @@ namespace ApiCompleta.Controllers
 			{
 				return BadRequest();
 			}
-			var villa = await _db.Villas.FirstOrDefaultAsync(v => v.Id == id);
+			var villa = await _villaRepo.Obtener(v => v.Id == id);
 			if (villa == null) 
 			{
 				return NotFound();
 			}
-			_db.Villas.Remove(villa);
-			await _db.SaveChangesAsync();
+			_villaRepo.Remover(villa);
 
 			return NoContent();
 		}
@@ -126,8 +125,7 @@ namespace ApiCompleta.Controllers
 			Villa modelo = _mapper.Map<Villa>(updateDto);
 
 
-			_db.Villas.Update(modelo);
-			await _db.SaveChangesAsync();
+			_villaRepo.Actualizar(modelo);
 
 			return NoContent();
 		}
@@ -142,7 +140,7 @@ namespace ApiCompleta.Controllers
 				return BadRequest();
 			}
 
-			var villa = await _db.Villas.AsNoTracking().FirstOrDefaultAsync(v => v.Id == id);
+			var villa = await _villaRepo.Obtener(v => v.Id == id, tracked:false);
 
 			VillaUpdateDto villaDto = _mapper.Map<VillaUpdateDto>(villa);
 
@@ -157,8 +155,7 @@ namespace ApiCompleta.Controllers
 
 			Villa modelo = _mapper.Map<Villa>(villaDto);
 
-			_db.Villas.Update(modelo);
-			await _db.SaveChangesAsync();
+			_villaRepo.Actualizar(modelo);
 
 			return NoContent();
 		}
