@@ -4,7 +4,7 @@ using ApiCompleta.Repositorio.IRepositorio;
 
 namespace ApiCompleta.Repositorio
 {
-	public class VillaRepositorio : Repositorio<Villa>, IVillaRepositorio
+	public class VillaRepositorio : Repositorio<Villa>, INumeroVillaRepositorio
 	{
 		private readonly ApplicationDbContext _db;
 
@@ -16,7 +16,7 @@ namespace ApiCompleta.Repositorio
 		public async Task<Villa> Actualizar(Villa entidad)
 		{
 			entidad.FechaActualizacion = DateTime.Now;
-			_db.Villas.Update(entidad);
+			_db.NumeroVillas.Update(entidad);
 			await _db.SaveChangesAsync();
 			return entidad;
 		}

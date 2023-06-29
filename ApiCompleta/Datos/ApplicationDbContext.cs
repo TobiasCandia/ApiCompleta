@@ -9,7 +9,9 @@ namespace ApiCompleta.Datos
 		{
 			
 		}
-		public DbSet<Villa> Villas { get; set; }
+
+		public DbSet<Villa> NumeroVillas { get; set; }
+		public DbSet<NumeroVilla> NuemeroVillas { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{

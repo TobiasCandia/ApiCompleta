@@ -2,7 +2,7 @@
 
 namespace ApiCompleta.Repositorio.IRepositorio
 {
-	public interface IVillaRepositorio : IRepositorio<Villa>
+	public interface INumeroVillaRepositorio : IRepositorio<Villa>
 	{
 		Task<Villa> Actualizar(Villa entidad);
 	}
