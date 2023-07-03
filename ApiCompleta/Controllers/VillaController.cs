@@ -3,6 +3,7 @@ using ApiCompleta.Models;
 using ApiCompleta.Models.Dto;
 using ApiCompleta.Repositorio.IRepositorio;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.JsonPatch;
@@ -14,6 +15,7 @@ namespace ApiCompleta.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize]
 	public class VillaController : ControllerBase
 	{
 
