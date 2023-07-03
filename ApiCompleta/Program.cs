@@ -22,9 +22,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>
 
 builder.Services.AddAutoMapper(typeof(MappingConfig));
 
-builder.Services.AddScoped<INumeroVillaRepositorio, VillaRepositorio>();
-
-builder.Services.AddScoped<INumeroVillaRepositorio, NumeroVillaRepositorio>();
+builder.Services.AddScoped<IVillaRepositorio, VillaRepositorio>();
 
 var app = builder.Build();
 

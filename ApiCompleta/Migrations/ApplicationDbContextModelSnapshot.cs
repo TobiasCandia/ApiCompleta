@@ -27,14 +27,14 @@ namespace ApiCompleta.Migrations
                     b.Property<int>("VillaNo")
                         .HasColumnType("int");
 
-                    b.Property<string>("DetalleEspecial")
+                    b.Property<string>("DeatalleEspecial")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("FechaActualizacion")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("FechaCreacion")
+                    b.Property<DateTime>("FechcaCreacion")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("VillaId")
@@ -44,7 +44,7 @@ namespace ApiCompleta.Migrations
 
                     b.HasIndex("VillaId");
 
-                    b.ToTable("NuemeroVillas");
+                    b.ToTable("NumeroVillas");
                 });
 
             modelBuilder.Entity("ApiCompleta.Models.Villa", b =>
@@ -92,8 +92,8 @@ namespace ApiCompleta.Migrations
                             Id = 1,
                             Amenidad = "",
                             Detalle = "Detalle de la Villa...",
-                            FechaActualizacion = new DateTime(2023, 6, 29, 11, 34, 59, 872, DateTimeKind.Local).AddTicks(4796),
-                            FechaCreacion = new DateTime(2023, 6, 29, 11, 34, 59, 872, DateTimeKind.Local).AddTicks(4785),
+                            FechaActualizacion = new DateTime(2023, 7, 3, 9, 6, 30, 179, DateTimeKind.Local).AddTicks(8920),
+                            FechaCreacion = new DateTime(2023, 7, 3, 9, 6, 30, 179, DateTimeKind.Local).AddTicks(8908),
                             ImagenUrl = "",
                             MetrosCuadrados = 50.0,
                             Name = "Villa Real",
@@ -105,8 +105,8 @@ namespace ApiCompleta.Migrations
                             Id = 2,
                             Amenidad = "",
                             Detalle = "Detalle de la Villa...",
-                            FechaActualizacion = new DateTime(2023, 6, 29, 11, 34, 59, 872, DateTimeKind.Local).AddTicks(4799),
-                            FechaCreacion = new DateTime(2023, 6, 29, 11, 34, 59, 872, DateTimeKind.Local).AddTicks(4798),
+                            FechaActualizacion = new DateTime(2023, 7, 3, 9, 6, 30, 179, DateTimeKind.Local).AddTicks(8924),
+                            FechaCreacion = new DateTime(2023, 7, 3, 9, 6, 30, 179, DateTimeKind.Local).AddTicks(8923),
                             ImagenUrl = "",
                             MetrosCuadrados = 40.0,
                             Name = "Premium Vista a la Piscina",

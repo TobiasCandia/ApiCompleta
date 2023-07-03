@@ -18,11 +18,11 @@ namespace ApiCompleta.Controllers
 	{
 
 		private readonly ILogger<VillaController> _logger;
-		private readonly INumeroVillaRepositorio _villaRepo;
+		private readonly IVillaRepositorio _villaRepo;
 		private readonly IMapper _mapper;
 		protected ApiResponse _response;
 
-		public VillaController(ILogger<VillaController> logger, INumeroVillaRepositorio villaRepo, IMapper mapper)
+		public VillaController(ILogger<VillaController> logger, IVillaRepositorio villaRepo, IMapper mapper)
 		{
 			_logger = logger;
 			_villaRepo = villaRepo;

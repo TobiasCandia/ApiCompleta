@@ -1,5 +1,6 @@
 ﻿using ApiCompleta.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace ApiCompleta.Datos
 {
@@ -10,8 +11,7 @@ namespace ApiCompleta.Datos
 			
 		}
 
-		public DbSet<Villa> NumeroVillas { get; set; }
-		public DbSet<NumeroVilla> NuemeroVillas { get; set; }
+		public DbSet<Villa> Villas { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
