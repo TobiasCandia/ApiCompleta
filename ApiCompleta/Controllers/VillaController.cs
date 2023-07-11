@@ -33,6 +33,7 @@ namespace ApiCompleta.Controllers
 		}
 
 		[HttpGet]
+		[Route("ListaVillas")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
 
         public async Task<ActionResult<ApiResponse>> GetVillas()
@@ -95,6 +96,7 @@ namespace ApiCompleta.Controllers
 		}
 
 		[HttpPost]
+		[Route("IngresarVilla")]
 		[ProducesResponseType(StatusCodes.Status201Created)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		[ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -137,7 +139,7 @@ namespace ApiCompleta.Controllers
 			return _response;
 		}
 
-		[HttpDelete("{id:int}")]
+		[HttpDelete("Eliminar/{id:int}")]
 		[ProducesResponseType(StatusCodes.Status204NoContent)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -171,7 +173,7 @@ namespace ApiCompleta.Controllers
 			return BadRequest(_response);
 		}
 
-		[HttpPut("{id:int}")]
+		[HttpPut("Editar/{id:int}")]
 		[ProducesResponseType(StatusCodes.Status204NoContent)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		
@@ -185,37 +187,6 @@ namespace ApiCompleta.Controllers
 			}
 
 			Villa modelo = _mapper.Map<Villa>(updateDto);
-
-			await _villaRepo.Actualizar(modelo);
-			_response.statusCode = HttpStatusCode.NoContent;
-
-			return Ok(_response);
-		}
-
-		[HttpPatch("{id:int}")]
-		[ProducesResponseType(StatusCodes.Status204NoContent)]
-		[ProducesResponseType(StatusCodes.Status400BadRequest)]
-		public async Task<IActionResult> UpdatePartialVilla(int id, JsonPatchDocument<VillaUpdateDto> patchDto) 
-		{
-			if (patchDto == null || id == 0) 
-			{
-				return BadRequest();
-			}
-
-			var villa = await _villaRepo.Obtener(v => v.Id == id, tracked:false);
-
-			VillaUpdateDto villaDto = _mapper.Map<VillaUpdateDto>(villa);
-
-			if (villa == null) return BadRequest();
-			
-			patchDto.ApplyTo(villaDto, ModelState);
-
-			if(!ModelState.IsValid)
-			{
-				return BadRequest(ModelState);
-			}
-
-			Villa modelo = _mapper.Map<Villa>(villaDto);
 
 			await _villaRepo.Actualizar(modelo);
 			_response.statusCode = HttpStatusCode.NoContent;
